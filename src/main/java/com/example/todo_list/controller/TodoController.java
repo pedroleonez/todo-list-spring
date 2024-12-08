@@ -2,8 +2,7 @@ package com.example.todo_list.controller;
 
 import com.example.todo_list.entity.Todo;
 import com.example.todo_list.service.TodoService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,19 +15,23 @@ public class TodoController {
         this.todoService = todoService;
     }
 
-    List<Todo> create(Todo todo) {
+    @PostMapping
+    List<Todo> create(@RequestBody Todo todo) {
         return todoService.create(todo);
     }
 
+    @GetMapping
     List<Todo> list() {
         return todoService.list();
     }
 
-    List<Todo> update(Todo todo) {
+    @PutMapping
+    List<Todo> update(@RequestBody Todo todo) {
         return todoService.update(todo);
     }
 
-    List<Todo> delete(Long id) {
+    @DeleteMapping("{id}")
+    List<Todo> delete(@PathVariable("id") Long id) {
         return todoService.delete(id);
     }
 }
