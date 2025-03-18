@@ -14,7 +14,7 @@ class TodoListApplicationTests {
 
 	@Test
 	void testCreateTodoSuccess() {
-		var todo = new Todo("todo 1", "desc todo 1", false, 1);
+		var todo = new Todo(null, "todo 1", "desc todo 1", false, 1);
 
 		webTestClient
 				.post()
@@ -25,10 +25,10 @@ class TodoListApplicationTests {
 				.expectBody()
 				.jsonPath("$").isArray()
 				.jsonPath("$.length()").isEqualTo(1)
-				.jsonPath("$[0].nome").isEqualTo(todo.getNome())
-				.jsonPath("$[0].descricao").isEqualTo(todo.getDescricao())
-				.jsonPath("$[0].realizado").isEqualTo(todo.isRealizado())
-				.jsonPath("$[0].prioridade").isEqualTo(todo.getPrioridade());
+				.jsonPath("$[0].name").isEqualTo(todo.getName())
+				.jsonPath("$[0].description").isEqualTo(todo.getDescription())
+				.jsonPath("$[0].done").isEqualTo(todo.isDone())
+				.jsonPath("$[0].priority").isEqualTo(todo.getPriority());
 	}
 
 	@Test
@@ -36,8 +36,7 @@ class TodoListApplicationTests {
 		webTestClient
 				.post()
 				.uri("/todos")
-				.bodyValue(new Todo("", "", false, 0)).exchange()
+				.bodyValue(new Todo(null, "", "", false, 0)).exchange()
 				.expectStatus().isBadRequest();
 	}
-
 }
