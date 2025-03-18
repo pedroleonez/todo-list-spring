@@ -9,10 +9,9 @@ import java.util.List;
 
 @Service
 public class TodoService {
-    //declaração do repositório criado
-    private TodoRepository todoRepository;
+    
+    private final TodoRepository todoRepository;
 
-    //injeção de dependência
     public TodoService(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
     }
@@ -23,7 +22,7 @@ public class TodoService {
     }
 
     public List<Todo> list() {
-        Sort sort = Sort.by("prioridade").descending().and(Sort.by("nome").ascending());
+        Sort sort = Sort.by("priority").descending().and(Sort.by("name").ascending());
         return todoRepository.findAll(sort);
     }
 
