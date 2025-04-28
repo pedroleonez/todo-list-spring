@@ -13,16 +13,20 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Todo {
+public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     @NotBlank
-    private String name;
+    private String title;
+    
     @NotBlank
     private String description;
-    private boolean done;
+    
+    private boolean completed;
+    
     @Column
     private int priority;
 }

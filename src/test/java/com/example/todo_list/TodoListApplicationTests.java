@@ -1,6 +1,6 @@
 package com.example.todo_list;
 
-import com.example.todo_list.entity.Todo;
+import com.example.todo_list.entity.Task;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +14,7 @@ class TodoListApplicationTests {
 
 	@Test
 	void testCreateTodoSuccess() {
-		var todo = new Todo(null, "todo 1", "desc todo 1", false, 1);
+		var todo = new Task(null, "task 1", "desc task 1", false, 1);
 
 		webTestClient
 				.post()
@@ -25,9 +25,9 @@ class TodoListApplicationTests {
 				.expectBody()
 				.jsonPath("$").isArray()
 				.jsonPath("$.length()").isEqualTo(1)
-				.jsonPath("$[0].name").isEqualTo(todo.getName())
+				.jsonPath("$[0].name").isEqualTo(todo.getTitle())
 				.jsonPath("$[0].description").isEqualTo(todo.getDescription())
-				.jsonPath("$[0].done").isEqualTo(todo.isDone())
+				.jsonPath("$[0].done").isEqualTo(todo.isCompleted())
 				.jsonPath("$[0].priority").isEqualTo(todo.getPriority());
 	}
 
@@ -36,7 +36,7 @@ class TodoListApplicationTests {
 		webTestClient
 				.post()
 				.uri("/todos")
-				.bodyValue(new Todo(null, "", "", false, 0)).exchange()
+				.bodyValue(new Task(null, "", "", false, 0)).exchange()
 				.expectStatus().isBadRequest();
 	}
 }
