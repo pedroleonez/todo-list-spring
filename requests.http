@@ -1,0 +1,35 @@
+### create method
+
+POST http://localhost:8080/api/todos 
+Content-Type: application/json
+
+{
+    "title": "New Todo",
+    "description": "This is a new todo item",
+    "completed": false,
+    "priority": 1
+}
+
+### get all method
+
+GET http://localhost:8080/api/todos
+
+### get by id method
+
+GET http://localhost:8080/api/todos/1
+
+### update method
+
+PUT http://localhost:8080/api/todos/1 
+Content-Type: application/json
+
+{
+    "title": "Updated Todo",
+    "description": "This is an updated todo item",
+    "completed": true,
+    "priority": 2
+}
+
+### delete method
+
+DELETE http://localhost:8080/api/todos/1
