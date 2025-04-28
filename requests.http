@@ -1,6 +1,6 @@
 ### create method
 
-POST http://localhost:8080/api/todos 
+POST http://localhost:8080/api/tasks 
 Content-Type: application/json
 
 {
@@ -12,15 +12,15 @@ Content-Type: application/json
 
 ### get all method
 
-GET http://localhost:8080/api/todos
+GET http://localhost:8080/api/tasks
 
 ### get by id method
 
-GET http://localhost:8080/api/todos/1
+GET http://localhost:8080/api/tasks/1
 
 ### update method
 
-PUT http://localhost:8080/api/todos/1 
+PUT http://localhost:8080/api/tasks/1 
 Content-Type: application/json
 
 {
@@ -32,4 +32,4 @@ Content-Type: application/json
 
 ### delete method
 
-DELETE http://localhost:8080/api/todos/1
+DELETE http://localhost:8080/api/tasks/1
