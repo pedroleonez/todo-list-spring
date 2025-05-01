@@ -4,6 +4,7 @@ import com.example.todo_list.dtos.input.CreateTaskDto;
 import com.example.todo_list.dtos.input.UpdateTaskDto;
 import com.example.todo_list.dtos.output.RecoveryTaskDto;
 import com.example.todo_list.entity.Task;
+import com.example.todo_list.mapper.TaskMapper;
 import com.example.todo_list.repository.TaskRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -14,48 +15,33 @@ import java.util.List;
 public class TaskService {
 
     private final TaskRepository todoRepository;
+    private final TaskMapper taskMapper;
 
-    public TaskService(TaskRepository todoRepository) {
+    public TaskService(TaskRepository todoRepository, TaskMapper taskMapper) {
         this.todoRepository = todoRepository;
+        this.taskMapper = taskMapper;
     }
 
     public void create(CreateTaskDto createTaskDto) {
-        Task task = new Task();
-        task.setTitle(createTaskDto.title());
-        task.setDescription(createTaskDto.description());
-        task.setPriority(createTaskDto.priority());
+        Task task = taskMapper.mapCreateTaskDtoToTask(createTaskDto);
         todoRepository.save(task);
     }
 
     public List<RecoveryTaskDto> list() {
         List<Task> tasks = todoRepository.findAll(Sort.by(Sort.Direction.ASC, "priority"));
         return tasks.stream()
-                .map(task -> new RecoveryTaskDto(
-                        task.getId(),
-                        task.getTitle(),
-                        task.getDescription(),
-                        task.isCompleted(),
-                        task.getPriority()))
+                .map(taskMapper::mapTaskToRecoveryTaskDto)
                 .toList();
     }
 
     public RecoveryTaskDto getById(Long id) {
         Task task = todoRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
-        return new RecoveryTaskDto(
-                task.getId(),
-                task.getTitle(),
-                task.getDescription(),
-                task.isCompleted(),
-                task.getPriority()
-        );
+        return taskMapper.mapTaskToRecoveryTaskDto(task);
     }
 
     public void update(Long taskId, UpdateTaskDto updateTaskDto) {
         Task task = todoRepository.findById(taskId).orElseThrow(() -> new RuntimeException("Task not found"));
-        task.setTitle(updateTaskDto.title());
-        task.setDescription(updateTaskDto.description());
-        task.setCompleted(updateTaskDto.completed());
-        task.setPriority(updateTaskDto.priority());
+        taskMapper.mapUpdateTaskDtoToTask(updateTaskDto, task);
         todoRepository.save(task);
     }
 
