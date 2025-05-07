@@ -47,6 +47,9 @@ public class TaskService {
     }
 
     public void delete(Long id) {
+        if (!todoRepository.existsById(id)) {
+            throw new TaskNotFoundException("Task not found");
+        }
         todoRepository.deleteById(id);
     }
 }
