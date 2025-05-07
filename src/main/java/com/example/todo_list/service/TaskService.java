@@ -4,6 +4,7 @@ import com.example.todo_list.dtos.input.CreateTaskDto;
 import com.example.todo_list.dtos.input.UpdateTaskDto;
 import com.example.todo_list.dtos.output.RecoveryTaskDto;
 import com.example.todo_list.entity.Task;
+import com.example.todo_list.exceptions.TaskNotFoundException;
 import com.example.todo_list.mapper.TaskMapper;
 import com.example.todo_list.repository.TaskRepository;
 import org.springframework.data.domain.Sort;
@@ -35,12 +36,12 @@ public class TaskService {
     }
 
     public RecoveryTaskDto getById(Long id) {
-        Task task = todoRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
+        Task task = todoRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found"));
         return taskMapper.mapTaskToRecoveryTaskDto(task);
     }
 
     public void update(Long taskId, UpdateTaskDto updateTaskDto) {
-        Task task = todoRepository.findById(taskId).orElseThrow(() -> new RuntimeException("Task not found"));
+        Task task = todoRepository.findById(taskId).orElseThrow(() -> new TaskNotFoundException("Task not found"));
         taskMapper.mapUpdateTaskDtoToTask(updateTaskDto, task);
         todoRepository.save(task);
     }
