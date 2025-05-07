@@ -4,9 +4,9 @@ POST http://localhost:8080/api/tasks
 Content-Type: application/json
 
 {
-    "title": "Workout",
-    "description": "Go for a 30-minute run",
-    "priority": 2
+    "title": "teste",
+    "description": "testeeee",
+    "priority": 1
 }
 
 ### get all method
