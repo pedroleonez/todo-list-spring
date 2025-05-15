@@ -29,7 +29,7 @@ public class TaskService {
     }
 
     public List<RecoveryTaskDto> list() {
-        List<Task> tasks = todoRepository.findAll(Sort.by(Sort.Direction.ASC, "priority"));
+        List<Task> tasks = todoRepository.findAll(Sort.by(Sort.Direction.DESC, "priority"));
         return tasks.stream()
                 .map(taskMapper::mapTaskToRecoveryTaskDto)
                 .toList();
