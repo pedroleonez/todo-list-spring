@@ -22,7 +22,6 @@ public class Task {
     @NotBlank
     private String title;
     
-    @NotBlank
     private String description;
     
     private boolean completed;

@@ -9,7 +9,6 @@ public record UpdateTaskDto(
         @NotBlank
         String title,
 
-        @NotBlank
         String description,
 
         boolean completed,

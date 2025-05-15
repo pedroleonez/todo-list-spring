@@ -9,7 +9,6 @@ public record CreateTaskDto(
         @NotBlank
         String title,
 
-        @NotBlank
         String description,
 
         @NotNull
